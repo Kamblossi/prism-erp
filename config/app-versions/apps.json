@@ -1,0 +1,22 @@
+[
+  {
+    "name": "frappe",
+    "url": "https://github.com/frappe/frappe",
+    "branch": "version-16"
+  },
+  {
+    "name": "erpnext",
+    "url": "https://github.com/frappe/erpnext",
+    "branch": "v16.15.1"
+  },
+  {
+    "name": "prism_brand",
+    "url": "https://github.com/Kamblossi/prism-brand",
+    "branch": "main"
+  },
+  {
+    "name": "prism_saas",
+    "url": "https://github.com/Kamblossi/prism_saas",
+    "branch": "main"
+  }
+]
