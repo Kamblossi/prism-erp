@@ -14,26 +14,26 @@ This runbook documents the Phase 1 PrismERP Docker foundation on Azure.
 
 ## Project paths
 
-- Source repos: /opt/prismerp/src
-- Frappe Docker: /opt/prismerp/docker/frappe_docker
-- Generated Compose: /opt/prismerp/gitops/prism-dev/docker-compose.yml
+- Source repos: `/opt/prismerp/src`
+- Frappe Docker: `/opt/prismerp/docker/frappe_docker`
+- Generated Compose: `/opt/prismerp/gitops/prism-dev/docker-compose.yml`
 
 ## Docker image
 
-- Image: prismerp
-- Tag: 16.15.1-phase1
+- Image: `prismerp`
+- Tag: `16.15.1-phase1`
 
 ## Apps
 
-- frappe
-- erpnext
-- prism_brand
-- prism_saas
+- `frappe`
+- `erpnext`
+- `prism_brand`
+- `prism_saas`
 
 ## Sites
 
-- dev-erp.prismtechco.com
-- tenant1-dev-erp.prismtechco.com
+- `dev-erp.prismtechco.com`
+- `tenant1-dev-erp.prismtechco.com`
 
 ## Start stack
 
@@ -42,43 +42,69 @@ docker compose \
   --project-name prism-dev \
   -f /opt/prismerp/gitops/prism-dev/docker-compose.yml \
   up -d
+```
 
-#Stop Stack
+## Stop stack
+
+```bash
 docker compose \
   --project-name prism-dev \
   -f /opt/prismerp/gitops/prism-dev/docker-compose.yml \
   down
+```
 
-#Check Containers
+## Check containers
+
+```bash
 docker compose \
   --project-name prism-dev \
   -f /opt/prismerp/gitops/prism-dev/docker-compose.yml \
   ps
+```
 
-#Enter backend
+## Enter backend
+
+```bash
 docker compose \
   --project-name prism-dev \
   -f /opt/prismerp/gitops/prism-dev/docker-compose.yml \
   exec backend bash
+```
 
-#Check installed apps
+## Check installed apps
+
+Run inside the backend container:
+
+```bash
 bench --site dev-erp.prismtechco.com list-apps
 bench --site tenant1-dev-erp.prismtechco.com list-apps
+```
 
-#Access through SSH tunnel (Run on local laptop)
-### Step A: Establish the Tunnel
-Run this in Git Bash or PowerShell on your laptop:
+## Access through SSH tunnel
+
+Run on local laptop:
+
+```bash
 ssh -L 8080:localhost:8080 azure-prism-erp
+```
 
-### Step B: Map the Hostnames (Windows)
-Because Frappe uses Host-Header routing, you MUST map these domains in your Windows hosts file (C:\Windows\System32\drivers\etc\hosts):
+Add these to the Windows hosts file:
+
+```text
 127.0.0.1  dev-erp.prismtechco.com
 127.0.0.1  tenant1-dev-erp.prismtechco.com
+```
 
-### Step C: Browser Access
-Open your browser and navigate to:
-- Control Site: http://dev-erp.prismtechco.com:8080
-- Tenant Site: http://tenant1-dev-erp.prismtechco.com:8080
+Open:
 
-#Login: Administrator / admin
+```text
+http://dev-erp.prismtechco.com:8080
+http://tenant1-dev-erp.prismtechco.com:8080
+```
 
+## Login
+
+```text
+Username: Administrator
+Password: admin
+```
