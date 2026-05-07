@@ -1,0 +1,31 @@
+{
+  "environment": "staging",
+  "prism_erp_product_version": "0.1.0",
+  "current_image_tag": "prismerp:erpnext-16.15.1-frappe-16.16.0-branding-002",
+  "current_image_id": "9a013ad44a8b",
+  "recommended_next_image_tag": "prismerp:0.1.0-staging.1-erpnext16.15.1-frappe16.17.5",
+  "upstream": {
+    "erpnext": {
+      "version": "16.15.1"
+    },
+    "frappe": {
+      "version": "16.17.5",
+      "note": "Pulled from moving version-16 branch during latest no-cache build."
+    }
+  },
+  "custom_apps": {
+    "prism_brand": {
+      "source_path": "/opt/prismerp/src/prism-brand",
+      "latest_known_commit": "5ac9f58",
+      "role": "PrismERP branding and user-facing identity layer"
+    },
+    "prism_saas": {
+      "source_path": "/opt/prismerp/src/prism_saas",
+      "role": "PrismERP SaaS control-plane layer"
+    }
+  },
+  "notes": [
+    "Current image tag is functional but misleading because it references frappe16.16.0 while the actual Frappe version is 16.17.5.",
+    "Next image rebuild should use the documented SemVer-based tag convention."
+  ]
+}
