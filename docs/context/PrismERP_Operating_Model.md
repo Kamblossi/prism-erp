@@ -40,3 +40,12 @@
 - Committing secrets
 - Printing database passwords
 - Printing private keys
+
+## Loose Operational Scripts Policy
+
+- `/opt/prismerp/scripts` contains historical/emergency scripts created during early Docker/branding recovery work.
+- These scripts must not be executed without explicit approval.
+- Before executing any loose script, inspect it, understand its target components, and confirm it is still compatible with the current Docker stack.
+- Canonical scripts should live in `/opt/prismerp/src/prism-erp/deploy/scripts`.
+- Branding automation should live in `/opt/prismerp/src/prism-brand`, not in loose host scripts.
+- See `/opt/prismerp/src/prism-erp/docs/operations/loose-operational-scripts-audit.md` for the full audit.
