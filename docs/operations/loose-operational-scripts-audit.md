@@ -1,5 +1,23 @@
 # Loose Operational Scripts Audit
 
+## Retirement Status
+
+The loose operational scripts previously stored in /opt/prismerp/scripts have been retired from active use.
+
+They were archived to:
+
+/opt/prismerp/archive/scripts/retired-loose-scripts-20260507T233654Z
+
+A tarball was created at:
+
+/opt/prismerp/archive/scripts/retired-loose-scripts-20260507T233654Z.tar.gz
+
+The active /opt/prismerp/scripts directory now contains only a README explaining that canonical automation must live in /opt/prismerp/src/prism-erp/deploy/scripts.
+
+The retired scripts must not be executed unless explicitly approved after review.
+
+---
+
 ## Purpose
 
 `/opt/prismerp/scripts` contains historical/emergency operational scripts created during early PrismERP Docker/branding recovery work (around May 1, 2026). These scripts were built during the "symlink trap" debugging and branding materialization phase.
