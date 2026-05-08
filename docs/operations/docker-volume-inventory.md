@@ -14,6 +14,45 @@ Do not prune or remove Docker volumes unless:
 4. The user explicitly approves deletion.
 5. The cleanup command targets explicit volume names, not broad prune commands.
 
+## Cleanup Run: 2026-05-08T00:15:03Z
+
+A controlled cleanup of unused anonymous Docker volumes was performed after a successful fresh backup.
+
+Backup used before cleanup:
+
+`/opt/prismerp/backups/manual/20260508T001409Z`
+
+Candidate rule:
+
+Only hash-like anonymous volumes that were unused by both running and stopped containers were deleted.
+
+Deleted volumes:
+
+57 anonymous volumes (hash-like names, ~0 bytes each).
+
+Failed deletions:
+
+None.
+
+Required project volumes retained:
+
+- `frappe_docker_sites`
+- `frappe_docker_apps`
+- `frappe_docker_db-data`
+- `frappe_docker_redis-queue-data`
+
+Post-cleanup result:
+
+- volumes before: 68
+- volumes deleted: 57
+- volumes after: 11
+- containers restarted: no
+- images rebuilt: no
+
+Policy reminder:
+
+Future cleanup must still use explicit volume names and must require user approval.
+
 ## Required project volumes
 
 | Volume | Purpose | Status | Delete? |
@@ -25,13 +64,11 @@ Do not prune or remove Docker volumes unless:
 
 ## Current volume counts
 
-As of **2026-05-07**:
+As of **2026-05-08 (Post-cleanup)**:
 
-- **All volumes:** 68
+- **All volumes:** 11
 - **Used volumes:** 10 (4 named, 6 anonymous)
-- **Unused volumes:** 58
-- **Likely anonymous volumes:** 64
-- **Unused anonymous candidates:** 58
+- **Unused volumes:** 1
 
 ## Used volumes by running containers
 
@@ -45,18 +82,6 @@ The `prism-dev` stack uses 4 named volumes and 6 anonymous volumes.
 
 **Anonymous:**
 - 6 anonymous volumes attached to containers (likely for logs or tmp).
-
-## Unused anonymous cleanup candidates
-
-There are **58 unused anonymous volumes**. These are likely leftovers from previous container runs (e.g., `prism-dev-frontend-1` from before a restart).
-
-These are candidates only. **They were not deleted.**
-
-Candidate list (first 10 of 58):
-1. `00bd143080004732ef6d2068356fd3337dc6f475aa51f0593ceea892684a2b96`
-2. `0a195ea994afd3c9be172bddebb13e389eae49915a13ec0c54afd369d4505de1`
-3. `0cd17160df601da22f7645f8eef67603b687bbc3f7077852cf7d06947d58415f`
-... (and 55 more)
 
 ## Cleanup policy
 
@@ -90,4 +115,4 @@ If any container references the volume, do not delete it.
 
 ## Current recommendation
 
-No urgent deletion is recommended. Volume cleanup should be scheduled after another successful backup and, ideally, after a restore drill. Future deletion must use explicit volume names and require user approval.
+Volume cleanup is largely complete. Only 1 unused anonymous candidate remains.

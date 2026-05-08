@@ -1,0 +1,35 @@
+# Docker Volume Cleanup Snapshot
+
+Date: 2026-05-08T00:15:03Z
+Stack: prism-dev
+
+## Pre-cleanup Counts
+All volumes: 68
+Used by running: 10
+Used by any: 11
+Likely anonymous: 64
+Unused anonymous candidates: 58
+Safe deletion candidates: 57
+
+## Candidate List (First 10 of 57)
+00bd143080004732ef6d2068356fd3337dc6f475aa51f0593ceea892684a2b96
+0a195ea994afd3c9be172bddebb13e389eae49915a13ec0c54afd369d4505de1
+...
+
+## Pre-delete Size Summary
+57 anonymous volumes of approximately 0 bytes each (mostly empty logs/tmp).
+Named volumes retained:
+- frappe_docker_sites: 26M
+- frappe_docker_apps: 570M
+- frappe_docker_db-data: 449M
+- frappe_docker_redis-queue-data: 96K
+
+## Result
+Deleted: 57
+Failed: 0
+
+## Post-cleanup Counts
+All volumes: 11
+Used: 10
+Required project volumes: Present
+Stack health: 9/9 running, MariaDB healthy.
