@@ -11,7 +11,7 @@ ERPNext
 The subtitle "ERPNext" needed to be replaced with "PrismERP".
 
 ### Issue B — About dialog content
-The default Frappe About dialog showed generic Frappe/ERPNext information. It needed to be replaced with custom PrismERP branding content.
+The default Frappe About dialog showed generic Frappe information with links to frappe.io, GitHub, etc. It needed to be replaced with custom PrismERP branding content.
 
 ## Implementation
 
@@ -22,11 +22,14 @@ The default Frappe About dialog showed generic Frappe/ERPNext information. It ne
 - Does NOT scan the whole DOM or use MutationObserver
 
 ### About dialog override
-- Overrides `frappe.ui.toolbar.AboutDialog.prototype.show` method
-- Replaces only the About dialog content with custom PrismERP HTML
-- Uses a Frappe `frappe.ui.Dialog` with an HTML field
-- Content includes: title, description, clickable links (Website, LinkedIn, X, Email), version info, and copyright
-- Does NOT affect other dialogs or modals
+- Replaces `frappe.ui.misc.about` function (the actual Frappe v16 implementation)
+- The original function creates a dialog with Frappe branding; ours creates one with PrismERP branding
+- Clears any cached dialog (`frappe.ui.misc.about_dialog = null`) to prevent stale Frappe content from showing
+- Always recreates the dialog on each open to ensure fresh PrismERP content
+- Content includes: title (PrismERP), description, clickable links (Website, LinkedIn, X, Email), version info, and copyright
+
+## Why the first attempt failed
+The initial override targeted `frappe.ui.toolbar.AboutDialog.prototype.show`, but Frappe v16 uses `frappe.ui.misc.about()` (a function, not a class). The correct hook point is `frappe.ui.misc.about`.
 
 ## Anti-freeze guarantees
 This implementation intentionally avoids:
@@ -43,8 +46,10 @@ This implementation intentionally avoids:
 `/mnt/prismerp-data/docker/volumes/frappe_docker_sites/_data/assets/prism_brand/js/prism_brand_desk.js`
 
 ## Testing checklist
+- [ ] Hard refresh browser (Ctrl+Shift+R)
 - [ ] Open workspace (e.g., Organization) — sidebar subtitle shows "PrismERP" not "ERPNext"
-- [ ] Click Help / About — custom PrismERP content appears with clickable links
+- [ ] Click Help → About — custom PrismERP content appears with clickable links
+- [ ] Close and reopen About dialog — content remains PrismERP (no stale cache)
 - [ ] Navigate between workspaces — subtitle remains correct after route changes
 - [ ] No browser freeze or unresponsive tab warnings
 - [ ] Workspace tiles remain clickable and functional
