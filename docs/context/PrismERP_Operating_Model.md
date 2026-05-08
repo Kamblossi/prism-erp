@@ -146,3 +146,16 @@ ERPNext and Frappe remain upstream dependencies and are not forked.
 - Do not print secrets or full config files.
 - If live system evidence contradicts documentation, report the mismatch.
 - Commit changes only to the appropriate repository.
+
+## Docker Volume Cleanup Policy
+
+- Docker volumes must not be pruned casually.
+- Named project volumes such as `frappe_docker_sites`, `frappe_docker_apps`, `frappe_docker_db-data`, and `frappe_docker_redis-queue-data` must not be deleted.
+- Anonymous volumes may accumulate after container recreation.
+- Anonymous volumes may only be deleted after:
+  1. backup exists,
+  2. volume is confirmed unused,
+  3. volume is documented as a candidate,
+  4. user explicitly approves deletion.
+- Prefer explicit `docker volume rm <volume>` over broad `docker volume prune`.
+- Never manually delete volume directories under Docker data root unless performing a documented disaster recovery procedure.
